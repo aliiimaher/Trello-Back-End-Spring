@@ -26,6 +26,9 @@ public class Workspace {
     @JoinColumn(name = "workspace_id")
     private List<Board> boards;
 
+    @ManyToMany
+    private List<Users> users;
+
 
     public Workspace(String name, String type, String description, String visibility, List<Board> boards) {
         this.name = name;
@@ -33,6 +36,7 @@ public class Workspace {
         this.description = description;
         this.visibility = visibility;
         this.boards = boards;
+        //this.users = users;
     }
 
 

@@ -34,4 +34,5 @@ public class WorkspaceController {
         return workspaceService.asignBoardToWorkspace(board_id,workspace_id);
     }
 
+
 }
