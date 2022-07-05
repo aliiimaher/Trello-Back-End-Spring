@@ -4,6 +4,7 @@ package project.trello.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,6 +22,14 @@ public class Users {
     private String password;
     private String email;
 
+    @ManyToMany
+    @JoinTable(
+            name = "workspace_user",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "workspace_id")
+    )
+    private List<Workspace> workspaces;
+
 
     public Users(String password, String email) {
         this.password = password;
@@ -34,8 +43,3 @@ public class Users {
         this.email = email;
     }
 }
-
-// this fucking test for git fucking push and motherfuncking committttttttttttttttttttttttt :")
-// KIR IN MOTHERFUCKING TRELLO
-// Alan chi khordi? biscoite?
-// Bara mohsen ham zadim
