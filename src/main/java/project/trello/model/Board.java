@@ -1,5 +1,6 @@
 package project.trello.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,10 +21,12 @@ public class Board {
     private String title;
     private String visibility;      // it can be "private" -- "workspace" -- "public"    .
 
+    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "list_id")
     private List<project.trello.model.List> lists;
 
+    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "activity_id")
     private List<Activity> activities;
