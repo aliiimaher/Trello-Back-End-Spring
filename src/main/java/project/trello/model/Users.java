@@ -36,10 +36,11 @@ public class Users {
         this.email = email;
     }
 
-    public Users(String firstName, String lastName, String password, String email) {
+    public Users(String firstName, String lastName, String password, String email, List<Workspace> workspaces) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
+        this.workspaces = workspaces;
     }
 }

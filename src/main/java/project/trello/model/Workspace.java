@@ -1,5 +1,6 @@
 package project.trello.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,12 +23,11 @@ public class Workspace {
     private String description;
     private String visibility;   // it can be private and public .
 
+    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "workspace_id")
     private List<Board> boards;
 
-    @ManyToMany
-    private List<Users> users;
 
 
     public Workspace(String name, String type, String description, String visibility, List<Board> boards) {
@@ -36,7 +36,6 @@ public class Workspace {
         this.description = description;
         this.visibility = visibility;
         this.boards = boards;
-        //this.users = users;
     }
 
 

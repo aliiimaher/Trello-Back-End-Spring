@@ -8,7 +8,6 @@ import project.trello.service.WorkspaceService;
 import java.util.List;
 
 @RestController
-@RequestMapping("workspaces")
 public class WorkspaceController {
 
     private final WorkspaceService workspaceService;
@@ -19,19 +18,19 @@ public class WorkspaceController {
     }
 
 
-    @GetMapping("get")
+    @GetMapping("getworkspaces")
     public List<Workspace> getWorkspaces(){
         return workspaceService.getWorkspaces();
     }
 
-    @PostMapping("create")
+    @PostMapping("createworkspace")
     public Workspace createWorkspace(@RequestBody Workspace workspace){
         return workspaceService.createWorkspace(workspace);
     }
 
-    @PutMapping("/{board_id}/asignBoardToWorkspace/{workspace_id}")
-    public Workspace asignBoardToWorkspace(@PathVariable Long board_id,@PathVariable Long workspace_id){
-        return workspaceService.asignBoardToWorkspace(board_id,workspace_id);
+    @PutMapping("/assignBoardToWorkspace/{board_id}/{workspace_id}")
+    public Workspace assignBoardToWorkspace(@PathVariable Long board_id,@PathVariable Long workspace_id){
+        return workspaceService.assignBoardToWorkspace(board_id,workspace_id);
     }
 
 

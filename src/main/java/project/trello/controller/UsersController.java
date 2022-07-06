@@ -9,10 +9,10 @@ import project.trello.service.UsersService;
 import java.util.List;
 
 @RestController
-@RequestMapping("users")
 public class UsersController {
 
     private final UsersService usersService;
+
 
     public UsersController(UsersService usersService) {
         this.usersService = usersService;
@@ -33,8 +33,8 @@ public class UsersController {
         return usersService.login(user.getEmail(),user.getPassword());
     }
 
-    @PutMapping("/{user_id}/asignUserToWorkspace/{workspace_id}")
-    public Users asignUserToWorkspace(@PathVariable Long user_id, @PathVariable Long workspace_id){
-        return usersService.asignUserToWorkspace(user_id,workspace_id);
+    @PutMapping("/assignUserToWorkspace/{user_id}/{workspace_id}")
+    public Users assignUserToWorkspace(@PathVariable Long user_id, @PathVariable Long workspace_id){
+        return usersService.assignUserToWorkspace(user_id,workspace_id);
     }
 }

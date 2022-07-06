@@ -9,7 +9,6 @@ import project.trello.service.BoardService;
 import java.util.List;
 
 @RestController
-@RequestMapping("board")
 public class BoardController {
 
     private  final BoardService boardService;
@@ -19,12 +18,12 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping("get")
+    @GetMapping("getboards")
     public List<Board> getBoards(){
         return boardService.getBoards();
     }
 
-    @PostMapping("create")
+    @PostMapping("createboard")
     public Board createBoard(@RequestBody Board board){
         return boardService.createBoard(board);
     }

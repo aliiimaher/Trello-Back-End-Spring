@@ -31,10 +31,10 @@ public class WorkspaceService {
         return workspaceRepository.save(workspace);
     }
 
-    public  Workspace asignBoardToWorkspace(Long board_id,Long workspace_id){
-        Board bord = boardRepository.findById(board_id).get();
+    public  Workspace assignBoardToWorkspace(Long board_id,Long workspace_id){
+        Board board = boardRepository.findById(board_id).get();
         Workspace workspace = workspaceRepository.findById(workspace_id).get();
-        workspace.getBoards().add(bord);
+        workspace.getBoards().add(board);
         return workspaceRepository.save(workspace);
     }
 

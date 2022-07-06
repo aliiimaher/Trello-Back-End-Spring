@@ -28,10 +28,10 @@ public class Board {
     @JoinColumn(name = "activity_id")
     private List<Activity> activities;
 
-    public Board(String title, String visibility) {
+    public Board(String title, String visibility, List<project.trello.model.List> lists, List<Activity> activities) {
         this.title = title;
         this.visibility = visibility;
+        this.lists = lists;
+        this.activities = activities;
     }
-
-
 }
