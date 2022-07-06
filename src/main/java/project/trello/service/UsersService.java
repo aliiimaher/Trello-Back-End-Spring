@@ -47,11 +47,10 @@ public class UsersService {
         return "Wrong Password Or Username !";
     }
 
-    public Users asignUserToWorkspace(Long user_id,Long workspace_id){
+    public Users assignUserToWorkspace(Long user_id,Long workspace_id){
         Users user = usersRepository.findById(user_id).get();
         Workspace workspace = workspaceRepository.findById(workspace_id).get();
         user.getWorkspaces().add(workspace);
-        //workspace.getUsers().add(user);
         return usersRepository.save(user);
     }
 
