@@ -1,6 +1,7 @@
 package project.trello.controller;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.bind.annotation.*;
 import project.trello.model.Users;
 import project.trello.model.Workspace;
@@ -36,5 +37,10 @@ public class UsersController {
     @PutMapping("/assignUserToWorkspace/{user_id}/{workspace_id}")
     public Users assignUserToWorkspace(@PathVariable Long user_id, @PathVariable Long workspace_id){
         return usersService.assignUserToWorkspace(user_id,workspace_id);
+    }
+
+    @PutMapping("/update/{user_id}")
+    public Users updateUser(@PathVariable Long user_id, @RequestBody Users users){
+    return usersService.updateUser(user_id , users);
     }
 }

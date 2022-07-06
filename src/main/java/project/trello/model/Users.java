@@ -1,7 +1,9 @@
 package project.trello.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.apache.catalina.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,6 +23,7 @@ public class Users {
     private String lastName;
     private String password;
     private String email;
+
 
     @ManyToMany
     @JoinTable(
@@ -42,5 +45,10 @@ public class Users {
         this.password = password;
         this.email = email;
         this.workspaces = workspaces;
+    }
+
+    public Users(String firstName , String lastName, String kir){
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 }

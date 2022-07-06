@@ -54,4 +54,13 @@ public class UsersService {
         return usersRepository.save(user);
     }
 
+    public Users updateUser(Long user_id , Users user){
+        Users users = usersRepository.findById(user_id).get();
+        users.setFirstName(user.getFirstName());
+        users.setLastName(user.getLastName());
+
+        return usersRepository.save(users);
+
+    }
+
 }
