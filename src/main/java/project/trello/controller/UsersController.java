@@ -39,7 +39,7 @@ public class UsersController {
         return usersService.assignUserToWorkspace(user_id,workspace_id);
     }
 
-    @PutMapping("/update/{user_id}")
+    @PutMapping("/update-user/{user_id}")
     public Users updateUser(@PathVariable Long user_id, @RequestBody Users users){
     return usersService.updateUser(user_id , users);
     }
