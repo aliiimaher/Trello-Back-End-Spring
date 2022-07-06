@@ -9,7 +9,7 @@
       "parentId": "wrk_c47a7d605a7440d7b676ad04477a5b32",
       "modified": 1657119298853,
       "created": 1657117954912,
-      "url": "localhost:8080/update/2",
+      "url": "localhost:8080/update-user/2",
       "name": "update User",
       "description": "",
       "method": "PUT",
