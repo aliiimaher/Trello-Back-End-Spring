@@ -26,4 +26,11 @@ public class ListService {
     public project.trello.model.List createList(project.trello.model.List list) {
         return listRepository.save(list);
     }
+
+    public project.trello.model.List editList(Long list_id, project.trello.model.List list) {
+        project.trello.model.List foundedList = listRepository.findById(list_id).get();
+        foundedList.setTitle(list.getTitle());
+
+        return listRepository.save(foundedList);
+    }
 }

@@ -5,6 +5,71 @@
   "__export_source": "insomnia.desktop.app:v6.3.2",
   "resources": [
     {
+      "_id": "req_3b01612bbeff4938a8c9fefaf566d7de",
+      "parentId": "wrk_c47a7d605a7440d7b676ad04477a5b32",
+      "modified": 1657198374577,
+      "created": 1657198331396,
+      "url": "localhost:8080/edit-label",
+      "name": "edit label",
+      "description": "",
+      "method": "PUT",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1657198331396,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_c47a7d605a7440d7b676ad04477a5b32",
+      "parentId": null,
+      "modified": 1656192906764,
+      "created": 1656192906764,
+      "name": "Insomnia",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_cccb5da1ccd64112bbc813030a49d012",
+      "parentId": "wrk_c47a7d605a7440d7b676ad04477a5b32",
+      "modified": 1657198081522,
+      "created": 1657197490645,
+      "url": "localhost:8080/edit-list/4",
+      "name": "edit list",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_444e2977b4bc415d83ecfa6ca97152b5"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1657197490646,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
       "_id": "req_c0bc171788474af595a7820a7ce72f36",
       "parentId": "wrk_c47a7d605a7440d7b676ad04477a5b32",
       "modified": 1657196484377,
