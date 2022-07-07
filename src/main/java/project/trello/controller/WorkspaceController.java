@@ -38,4 +38,9 @@ public class WorkspaceController {
         workspaceService.deleteWorkspace(workspace_id);
     }
 
+    @PutMapping("/edit-workspace/{workspace_id}")
+    public Workspace editWorkspace(@PathVariable Long workspace_id, @RequestBody Workspace workspace){
+        return workspaceService.editWorkspace(workspace_id, workspace);
+    }
+
 }
