@@ -27,4 +27,21 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
+    public void deleteBoard(Long board_id) {
+        boolean exists = boardRepository.existsById(board_id);
+        if (!exists) {
+            throw new IllegalStateException("board with id " +
+                    board_id + " does not exist");
+        }
+        boardRepository.deleteById(board_id);
+    }
+
+
+    public Board editBoard(Long board_id, Board board) {
+        Board foundedBoard = boardRepository.findById(board_id).get();
+        foundedBoard.setTitle(board.getTitle());
+        foundedBoard.setVisibility(board.getVisibility());
+
+        return boardRepository.save(foundedBoard);
+    }
 }
