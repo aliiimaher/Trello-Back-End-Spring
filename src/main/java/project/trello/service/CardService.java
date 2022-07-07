@@ -3,8 +3,10 @@ package project.trello.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.trello.model.Card;
+import project.trello.model.Comment;
 import project.trello.model.Label;
 import project.trello.repository.CardRepository;
+import project.trello.repository.CommentRepository;
 import project.trello.repository.LabelRepository;
 
 @Service
@@ -12,11 +14,13 @@ public class CardService {
 
     private final CardRepository cardRepository;
     private final LabelRepository labelRepository;
+    private final CommentRepository commentRepository;
 
     @Autowired
-    public CardService(CardRepository cardRepository, LabelRepository labelRepository) {
+    public CardService(CardRepository cardRepository, LabelRepository labelRepository, CommentRepository commentRepository) {
         this.cardRepository = cardRepository;
         this.labelRepository = labelRepository;
+        this.commentRepository = commentRepository;
     }
 
     public Card createCard(Card card) {
@@ -62,5 +66,13 @@ public class CardService {
         label1.setColor(label.getColor());
         label1.setName(label.getName());
         return labelRepository.save(label1);
+    }
+
+    public Card addComment(Long card_id, Comment comment){
+        commentRepository.save(comment);
+        Card card = cardRepository.findById(card_id).get();
+        Comment foundedComment = commentRepository.findById(comment.getId()).get();
+        card.getComments().add(foundedComment);
+        return cardRepository.save(card);
     }
 }
