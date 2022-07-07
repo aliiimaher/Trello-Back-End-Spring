@@ -30,9 +30,9 @@ public class CardService {
         return cardRepository.save(card);
     }
 
-//    public List<Card> getCards(){
-//        return cardRepository.findAll();
-//    }
+    public List<Card> getCards(){
+        return cardRepository.findAll();
+    }
 
 // ---------------------------------- delete card ----- :")
     public void deleteCard(Long card_id) {
