@@ -1,8 +1,7 @@
 package project.trello.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import project.trello.model.Checklist;
 import project.trello.service.ChecklistService;
 
@@ -22,6 +21,11 @@ public class ChecklistController {
     @GetMapping("get-checklists")
     public List<Checklist> getChecklists(){
         return checklistService.getChecklists();
+    }
+
+    @PostMapping("create-checklist")
+    public Checklist createChecklist(@RequestBody Checklist checklist){
+        return checklistService.createChecklist(checklist);
     }
 
 }

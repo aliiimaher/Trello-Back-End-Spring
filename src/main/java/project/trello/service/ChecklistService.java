@@ -24,5 +24,7 @@ public class ChecklistService {
     }
 
 
-
+    public Checklist createChecklist(Checklist checklist) {
+        return checklistRepository.save(checklist);
+    }
 }
