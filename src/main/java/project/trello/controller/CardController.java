@@ -31,5 +31,4 @@ public class CardController {
     public Card editCard(@PathVariable Long card_id,@RequestBody Card card){
        return cardService.editCard(card_id,card);
     }
-
 }
