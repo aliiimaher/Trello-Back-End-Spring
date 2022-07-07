@@ -5,6 +5,38 @@
   "__export_source": "insomnia.desktop.app:v6.3.2",
   "resources": [
     {
+      "_id": "req_90b50c816e824cc2b1ae7de931ddb7eb",
+      "parentId": "wrk_c47a7d605a7440d7b676ad04477a5b32",
+      "modified": 1657230979816,
+      "created": 1657230884521,
+      "url": "localhost:8080/create-checklist",
+      "name": "create checklist",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_744f94eb3cd14d78bfa3a397bf2e7785"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1657230884521,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
       "_id": "req_c475390f4ed94d0d9d9fc6893c27a83f",
       "parentId": "wrk_c47a7d605a7440d7b676ad04477a5b32",
       "modified": 1657215336571,
