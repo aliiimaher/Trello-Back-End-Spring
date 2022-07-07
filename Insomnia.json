@@ -5,6 +5,71 @@
   "__export_source": "insomnia.desktop.app:v6.3.2",
   "resources": [
     {
+      "_id": "req_85084129d2854f8db8e097fa0b49347c",
+      "parentId": "wrk_c47a7d605a7440d7b676ad04477a5b32",
+      "modified": 1657184548205,
+      "created": 1657184512136,
+      "url": "localhost:8080/delete-card/1",
+      "name": "delete card",
+      "description": "",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1657184512136,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_c47a7d605a7440d7b676ad04477a5b32",
+      "parentId": null,
+      "modified": 1656192906764,
+      "created": 1656192906764,
+      "name": "Insomnia",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_0d8021a793a647ba89b75375b99f2a05",
+      "parentId": "wrk_c47a7d605a7440d7b676ad04477a5b32",
+      "modified": 1657184720739,
+      "created": 1657184178857,
+      "url": "localhost:8080/create-card",
+      "name": "create card",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_ba69c248ee1a4fc68e4e310a2ba19ebf"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1657184178857,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
       "_id": "req_d30dfffc3aa64fdb89b308abb819b0b4",
       "parentId": "wrk_c47a7d605a7440d7b676ad04477a5b32",
       "modified": 1657180058479,
