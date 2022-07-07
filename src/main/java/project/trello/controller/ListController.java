@@ -1,10 +1,7 @@
 package project.trello.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import project.trello.service.ListService;
 
 import java.util.List;
@@ -30,4 +27,9 @@ public class ListController {
         return listService.createList(list);
     }
 
+    @PutMapping("/edit-list/{list_id}")
+    public project.trello.model.List editList(@PathVariable Long list_id,
+                                              @RequestBody project.trello.model.List list){
+        return listService.editList(list_id, list);
+    }
 }
