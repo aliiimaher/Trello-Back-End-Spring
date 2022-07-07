@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class Card {
 
     @Id
@@ -16,33 +16,7 @@ public class Card {
     private Long id;
     private String title;
     private String description;
-    private String label;
 
-
-    public Card(Long id, String title, String description, String label,
-                List<Checklist> checklists, List<Users> users,
-                List<Comment> comments, List<Activity> activities) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.label = label;
-        this.checklists = checklists;
-        this.users = users;
-        this.comments = comments;
-        this.activities = activities;
-    }
-
-    public Card(String title, String description, String label,
-                List<Checklist> checklists, List<Users> users,
-                List<Comment> comments, List<Activity> activities) {
-        this.title = title;
-        this.description = description;
-        this.label = label;
-        this.checklists = checklists;
-        this.users = users;
-        this.comments = comments;
-        this.activities = activities;
-    }
 
     @OneToMany
     @JoinColumn(name = "checklist_id" )

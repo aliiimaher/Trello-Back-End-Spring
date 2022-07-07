@@ -57,4 +57,10 @@ public class CardService {
         labelRepository.deleteById(label_id);
     }
 
+    public Label editLabel(Long label_id, Label label) {
+        Label label1 = labelRepository.findById(label_id).get();
+        label1.setColor(label.getColor());
+        label1.setName(label.getName());
+        return labelRepository.save(label1);
+    }
 }

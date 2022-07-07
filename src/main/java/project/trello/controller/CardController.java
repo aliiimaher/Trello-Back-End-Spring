@@ -43,4 +43,9 @@ public class CardController {
         cardService.deleteLabel(label_id);
     }
 
+    @PutMapping("/edit-label/{label_id}")
+    public Label editLabel(@PathVariable Long label_id,@RequestBody Label label){
+        return cardService.editLabel(label_id,label);
+    }
+
 }
