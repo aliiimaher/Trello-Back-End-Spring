@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project.trello.model.Checklist;
-import project.trello.model.List;
 import project.trello.service.ChecklistService;
+
+import java.util.List;
 
 @RestController
 public class ChecklistController {
@@ -18,9 +19,9 @@ public class ChecklistController {
         this.checklistService = checklistService;
     }
 
-    @GetMapping("get-checklist")
+    @GetMapping("get-checklists")
     public List<Checklist> getChecklists(){
-        return checklistService.getLists();
+        return checklistService.getChecklists();
     }
 
 }
