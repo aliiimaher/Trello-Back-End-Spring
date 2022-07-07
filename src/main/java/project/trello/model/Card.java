@@ -1,5 +1,6 @@
 package project.trello.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.util.List;
@@ -55,6 +56,7 @@ public class Card {
     @JoinColumn(name = "comment_id")
     private List<Comment> comments;
 
+    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "activity_id")
     private List<Activity> activities;

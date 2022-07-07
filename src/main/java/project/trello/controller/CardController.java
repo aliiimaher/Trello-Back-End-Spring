@@ -26,4 +26,10 @@ public class CardController {
 //    public void deleteCard(@PathVariable("card_id") Long card_id) {
 //        cardService.deleteCard(card_id);
 //    }
+
+    @PutMapping("/edit-card/{card_id}")
+    public Card editCard(@PathVariable Long card_id,@RequestBody Card card){
+       return cardService.editCard(card_id,card);
+    }
+
 }

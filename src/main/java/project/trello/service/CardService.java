@@ -28,4 +28,13 @@ public class CardService {
 //        }
 //        cardRepository.deleteById(card_id);
 //    }
+
+    public Card editCard(Long card_id,Card card){
+        Card card1 = cardRepository.findById(card_id).get();
+        card1.setTitle(card.getTitle());
+        card1.setDescription(card.getDescription());
+
+        return cardRepository.save(card1);
+    }
+
 }
