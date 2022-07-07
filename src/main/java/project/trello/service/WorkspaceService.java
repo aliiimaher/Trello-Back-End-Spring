@@ -38,6 +38,12 @@ public class WorkspaceService {
         return workspaceRepository.save(workspace);
     }
 
-
-
+    public void deleteWorkspace(Long workspace_id) {
+        boolean exists = workspaceRepository.existsById(workspace_id);
+        if (!exists) {
+            throw new IllegalStateException("workspace with id " +
+                    workspace_id + " does not exist");
+        }
+        workspaceRepository.deleteById(workspace_id);
+    }
 }
