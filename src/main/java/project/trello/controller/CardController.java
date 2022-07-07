@@ -26,10 +26,10 @@ public class CardController {
     public Card createCard(@RequestBody Card card){
         return cardService.createCard(card);
     }
-//    @GetMapping("getcards")
-//    public List<Card> getCards(){
-//        return cardService.getCards();
-//    }
+    @GetMapping("getcards")
+    public List<Card> getCards(){
+        return cardService.getCards();
+    }
 
     // ------------------------- delete card ------ :")
     @DeleteMapping("delete-card/{card_id}")
