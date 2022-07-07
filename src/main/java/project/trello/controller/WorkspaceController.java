@@ -33,5 +33,9 @@ public class WorkspaceController {
         return workspaceService.assignBoardToWorkspace(board_id,workspace_id);
     }
 
+    @DeleteMapping("/delete-workspace/{workspace_id}")
+    public void deleteWorkspace(@PathVariable("workspace_id") Long workspace_id) {
+        workspaceService.deleteWorkspace(workspace_id);
+    }
 
 }
