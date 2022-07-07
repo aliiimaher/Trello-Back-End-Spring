@@ -4,6 +4,7 @@ package project.trello.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import project.trello.model.Card;
+import project.trello.model.Comment;
 import project.trello.model.Label;
 import project.trello.service.CardService;
 
@@ -46,6 +47,11 @@ public class CardController {
     @PutMapping("/edit-label/{label_id}")
     public Label editLabel(@PathVariable Long label_id,@RequestBody Label label){
         return cardService.editLabel(label_id,label);
+    }
+
+    @PutMapping("/add-comment/{card_id}")
+    public Card addComment(@PathVariable Long card_id, @RequestBody Comment comment){
+        return cardService.addComment(card_id, comment);
     }
 
 }
