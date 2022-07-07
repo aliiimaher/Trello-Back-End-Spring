@@ -56,6 +56,10 @@ public class Card {
     @JoinColumn(name = "comment_id")
     private List<Comment> comments;
 
+    @OneToMany
+    @JoinColumn(name = "lebel_id")
+    private List<Label> labels;
+
     @JsonIgnore
     @OneToMany
     @JoinColumn(name = "activity_id")

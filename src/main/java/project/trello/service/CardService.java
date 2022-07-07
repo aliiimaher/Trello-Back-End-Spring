@@ -3,16 +3,20 @@ package project.trello.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.trello.model.Card;
+import project.trello.model.Label;
 import project.trello.repository.CardRepository;
+import project.trello.repository.LabelRepository;
 
 @Service
 public class CardService {
 
     private final CardRepository cardRepository;
+    private final LabelRepository labelRepository;
 
     @Autowired
-    public CardService(CardRepository cardRepository) {
+    public CardService(CardRepository cardRepository, LabelRepository labelRepository) {
         this.cardRepository = cardRepository;
+        this.labelRepository = labelRepository;
     }
 
     public Card createCard(Card card) {
@@ -36,4 +40,21 @@ public class CardService {
 
         return cardRepository.save(card1);
     }
+
+    public Card addLabel(Long card_id,Label label){
+        labelRepository.save(label);
+        Card card = cardRepository.findById(card_id).get();
+        Label label1 = labelRepository.findById(label.getId()).get();
+        card.getLabels().add(label1);
+        return cardRepository.save(card);
+    }
+
+    public void deleteLabel(Long label_id){
+        boolean exists = labelRepository.existsById(label_id);
+        if (!exists) {
+            throw new IllegalStateException("lebel with id " + label_id + " does not exists");
+        }
+        labelRepository.deleteById(label_id);
+    }
+
 }
