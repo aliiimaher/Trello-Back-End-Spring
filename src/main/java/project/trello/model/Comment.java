@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class Comment {
 
     @Id
