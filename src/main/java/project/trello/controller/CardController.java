@@ -3,10 +3,14 @@ package project.trello.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import project.trello.model.Board;
 import project.trello.model.Card;
 import project.trello.model.Comment;
 import project.trello.model.Label;
 import project.trello.service.CardService;
+import project.trello.service.CardService;
+
+import java.util.List;
 
 @RestController
 public class CardController {
@@ -22,12 +26,16 @@ public class CardController {
     public Card createCard(@RequestBody Card card){
         return cardService.createCard(card);
     }
+//    @GetMapping("getcards")
+//    public List<Card> getCards(){
+//        return cardService.getCards();
+//    }
 
     // ------------------------- delete card ------ :")
-//    @DeleteMapping("delete-card/{card_id}")
-//    public void deleteCard(@PathVariable("card_id") Long card_id) {
-//        cardService.deleteCard(card_id);
-//    }
+    @DeleteMapping("delete-card/{card_id}")
+    public void deleteCard(@PathVariable("card_id") Long card_id) {
+        cardService.deleteCard(card_id);
+    }
 
     @PutMapping("/edit-card/{card_id}")
     public Card editCard(@PathVariable Long card_id,@RequestBody Card card){
