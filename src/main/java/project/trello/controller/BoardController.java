@@ -27,4 +27,14 @@ public class BoardController {
     public Board createBoard(@RequestBody Board board){
         return boardService.createBoard(board);
     }
+
+    @DeleteMapping("/delete-board/{board_id}")
+    public void deleteBoard(@PathVariable("board_id") Long board_id) {
+        boardService.deleteBoard(board_id);
+    }
+
+    @PutMapping("/edit-board/{board_id}")
+    public Board editBoard(@PathVariable Long board_id, @RequestBody Board board){
+        return boardService.editBoard(board_id, board);
+    }
 }
