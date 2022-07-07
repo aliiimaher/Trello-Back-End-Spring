@@ -53,5 +53,6 @@ public class WorkspaceService {
         workspace.setVisibility(workspace.getVisibility());
 
         return workspaceRepository.save(workspace);
+
     }
 }
