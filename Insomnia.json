@@ -5,6 +5,48 @@
   "__export_source": "insomnia.desktop.app:v6.3.2",
   "resources": [
     {
+      "_id": "req_2587ba9bc4e64e2e9e8aa105c85356a5",
+      "parentId": "wrk_c47a7d605a7440d7b676ad04477a5b32",
+      "modified": 1657186314641,
+      "created": 1657186148877,
+      "url": "localhost:8080/edit-workspace/1",
+      "name": "edit workspace",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"this chaneged\",\n\t\"visibility\": \"bara hame\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_2a72c7c2ccc24bf4af358f70ce285a1f"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1657186148877,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_c47a7d605a7440d7b676ad04477a5b32",
+      "parentId": null,
+      "modified": 1656192906764,
+      "created": 1656192906764,
+      "name": "Insomnia",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
       "_id": "req_85084129d2854f8db8e097fa0b49347c",
       "parentId": "wrk_c47a7d605a7440d7b676ad04477a5b32",
       "modified": 1657184548205,

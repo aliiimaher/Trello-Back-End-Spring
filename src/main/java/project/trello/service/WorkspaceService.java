@@ -46,4 +46,12 @@ public class WorkspaceService {
         }
         workspaceRepository.deleteById(workspace_id);
     }
+
+    public Workspace editWorkspace(Long workspace_id, Workspace workspace) {
+        Workspace foundedWorkspace = workspaceRepository.findById(workspace_id).get();
+        workspace.setName(workspace.getName());
+        workspace.setVisibility(workspace.getVisibility());
+
+        return workspaceRepository.save(workspace);
+    }
 }
