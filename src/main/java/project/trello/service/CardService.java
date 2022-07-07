@@ -36,5 +36,4 @@ public class CardService {
 
         return cardRepository.save(card1);
     }
-
 }
