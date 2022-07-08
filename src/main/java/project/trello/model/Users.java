@@ -34,7 +34,7 @@ public class Users {
     private List<Workspace> workspaces;
 
 
-    public Users(String password, String email) {
+    public Users(String email, String password) {
         this.password = password;
         this.email = email;
     }
@@ -51,4 +51,5 @@ public class Users {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
 }
