@@ -39,8 +39,8 @@ public class UsersService {
         List<Users> usersList;
         usersList = getUsers();
         Users user1 = new Users(email,password);
-        for(Users user : usersList){
-            if(user.getEmail().equals(user1.getEmail()) && user.getPassword().equals(user1.getPassword())){
+        for(Users users : usersList){
+            if(users.getPassword().equals(user1.getPassword())){
                 return "Login Was Successful !!";
             }
         }
