@@ -2,6 +2,7 @@ package project.trello.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import project.trello.model.Card;
 import project.trello.model.Checklist;
 import project.trello.service.ChecklistService;
 
@@ -23,9 +24,9 @@ public class ChecklistController {
         return checklistService.getChecklists();
     }
 
-    @PostMapping("create-checklist")
-    public Checklist createChecklist(@RequestBody Checklist checklist){
-        return checklistService.createChecklist(checklist);
+    @PutMapping("/create-checklist/{card_id}")
+    public Card createChecklist(@PathVariable Long card_id, @RequestBody Checklist checklist){
+        return checklistService.createChecklist(card_id,checklist);
     }
 
 }
