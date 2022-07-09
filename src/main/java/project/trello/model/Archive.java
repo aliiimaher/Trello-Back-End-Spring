@@ -20,11 +20,15 @@ public class Archive {
 
 
     @OneToMany
-    @JoinColumn(name = "list_id")
+    @JoinColumn(name = "lists_id")
     private List<project.trello.model.List> lists;
 
     @OneToMany
-    @JoinColumn(name = "card_id")
+    @JoinColumn(name = "cards_id")
     private List<Card> cards;
 
+    public Archive(List<project.trello.model.List> lists, List<Card> cards) {
+        this.lists = lists;
+        this.cards = cards;
+    }
 }
