@@ -2,6 +2,7 @@ package project.trello.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import project.trello.model.Board;
 import project.trello.service.ListService;
 
 import java.util.List;
@@ -22,9 +23,9 @@ public class ListController {
         return listService.getLists();
     }
 
-    @PostMapping("createlist")
-    public project.trello.model.List createBoard(@RequestBody project.trello.model.List list){
-        return listService.createList(list);
+    @PutMapping("/createlist/{board_id}")
+    public Board createBoard(@PathVariable Long board_id, @RequestBody project.trello.model.List list){
+        return listService.createList(board_id,list);
     }
 
     @PutMapping("/edit-list/{list_id}")
