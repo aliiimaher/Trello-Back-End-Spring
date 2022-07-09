@@ -41,4 +41,9 @@ public class ListController {
     public void addListToArchive(@PathVariable Long list_id){
         archiveService.addListToArchive(list_id);
     }
+
+    @DeleteMapping("/delete-list/{list_id}")
+    public void deleteList(@PathVariable Long list_id){
+        listService.deleteList(list_id);
+    }
 }
