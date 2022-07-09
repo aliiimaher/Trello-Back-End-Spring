@@ -23,7 +23,6 @@ public class Workspace {
     private String description;
     private String visibility;   // it can be private and public .
 
-    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "workspace_id")
     private List<Board> boards;

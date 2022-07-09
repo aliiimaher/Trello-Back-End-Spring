@@ -23,9 +23,9 @@ public class BoardController {
         return boardService.getBoards();
     }
 
-    @PostMapping("createboard")
-    public Board createBoard(@RequestBody Board board){
-        return boardService.createBoard(board);
+    @PutMapping("/createboard/{workspace_id}")
+    public Workspace createBoard(@PathVariable Long workspace_id,@RequestBody Board board){
+        return boardService.createBoard(workspace_id,board);
     }
 
     @DeleteMapping("/delete-board/{board_id}")
