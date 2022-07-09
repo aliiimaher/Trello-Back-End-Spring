@@ -2,7 +2,10 @@ package project.trello.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import project.trello.ProjectApplication;
+import project.trello.model.Users;
 import project.trello.model.Workspace;
+import project.trello.service.UsersService;
 import project.trello.service.WorkspaceService;
 
 import java.util.List;
@@ -24,8 +27,8 @@ public class WorkspaceController {
     }
 
     @PostMapping("createworkspace")
-    public Workspace createWorkspace(@RequestBody Workspace workspace){
-        return workspaceService.createWorkspace(workspace);
+    public Users createWorkspace(@RequestBody Workspace workspace){
+        return workspaceService.createWorkspace(ProjectApplication.user_id,workspace);
     }
 
     @PutMapping("/assignBoardToWorkspace/{board_id}/{workspace_id}")

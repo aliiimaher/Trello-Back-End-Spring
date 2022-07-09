@@ -2,6 +2,7 @@ package project.trello.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import project.trello.ProjectApplication;
 import project.trello.model.Users;
 import project.trello.model.Workspace;
 import project.trello.repository.UsersRepository;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @Service
 public class UsersService {
+
 
     private final UsersRepository usersRepository;
     private final WorkspaceRepository workspaceRepository;
@@ -27,7 +29,7 @@ public class UsersService {
         return usersRepository.findAll();
     }
 
-    public Users createUser(Users user) {
+    public Users signup(Users user) {
         Optional<Users> usersByEmail = usersRepository.findUsersByEmail(user.getEmail());
         if(usersByEmail.isPresent()){
             throw new IllegalStateException("Email is already taken by another user !");
@@ -40,7 +42,8 @@ public class UsersService {
         usersList = getUsers();
         Users user1 = new Users(email,password);
         for(Users users : usersList){
-            if(users.getPassword().equals(user1.getPassword())){
+            if(users.getPassword().equals(user1.getPassword()) && users.getEmail().equals(user1.getEmail())){
+                ProjectApplication.user_id = users.getId();
                 return "Login Was Successful !!";
             }
         }
