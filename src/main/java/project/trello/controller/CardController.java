@@ -61,14 +61,14 @@ public class CardController {
         return cardService.addComment(card_id, comment);
     }
 
-    @PutMapping("/addCardToArchive/{card_id}")
+    @PutMapping("/archive-card/{card_id}")
     public void addCardToArchive(@PathVariable Long card_id){
         archiveService.addCardToArchive(card_id);
     }
 
-    @GetMapping("get-cardarchive")
+    @GetMapping("get-archives")
     public List<Archive> getArchive(){
-        return archiveService.getCardArchives();
+        return archiveService.getArchives();
     }
 
 }
