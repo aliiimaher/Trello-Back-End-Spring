@@ -34,7 +34,6 @@ public class Card {
     @JoinColumn(name = "lebel_id")
     private List<Label> labels;
 
-    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "activity_id")
     private List<Activity> activities;

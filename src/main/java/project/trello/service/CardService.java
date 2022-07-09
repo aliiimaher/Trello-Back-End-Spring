@@ -2,13 +2,13 @@ package project.trello.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import project.trello.model.Board;
 import project.trello.model.Card;
 import project.trello.model.Comment;
 import project.trello.model.Label;
 import project.trello.repository.CardRepository;
 import project.trello.repository.CommentRepository;
 import project.trello.repository.LabelRepository;
+import project.trello.repository.ListRepository;
 
 import java.util.List;
 
@@ -18,23 +18,28 @@ public class CardService {
     private final CardRepository cardRepository;
     private final LabelRepository labelRepository;
     private final CommentRepository commentRepository;
+    private final ListRepository listRepository;
 
     @Autowired
-    public CardService(CardRepository cardRepository, LabelRepository labelRepository, CommentRepository commentRepository) {
+    public CardService(CardRepository cardRepository, LabelRepository labelRepository, CommentRepository commentRepository, ListRepository listRepository) {
         this.cardRepository = cardRepository;
         this.labelRepository = labelRepository;
         this.commentRepository = commentRepository;
+        this.listRepository = listRepository;
     }
 
-    public Card createCard(Card card) {
-        return cardRepository.save(card);
+    public project.trello.model.List createCard(Long list_id, Card card) {
+        cardRepository.save(card);
+        project.trello.model.List list = listRepository.findById(list_id).get();
+        Card card1 = cardRepository.findById(card.getId()).get();
+        list.getCards().add(card1);
+        return listRepository.save(list);
     }
 
     public List<Card> getCards(){
         return cardRepository.findAll();
     }
 
-// ---------------------------------- delete card ----- :")
     public void deleteCard(Long card_id) {
         boolean exists = cardRepository.existsById(card_id);
         if (!exists) {

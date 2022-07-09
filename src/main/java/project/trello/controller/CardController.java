@@ -22,9 +22,9 @@ public class CardController {
         this.cardService = cardService;
     }
 
-    @PostMapping("create-card")
-    public Card createCard(@RequestBody Card card){
-        return cardService.createCard(card);
+    @PutMapping("/create-card/{list_id}")
+    public project.trello.model.List createCard(@PathVariable Long list_id,@RequestBody Card card){
+        return cardService.createCard(list_id,card);
     }
     @GetMapping("getcards")
     public List<Card> getCards(){
