@@ -46,4 +46,9 @@ public class WorkspaceController {
         return workspaceService.editWorkspace(workspace_id, workspace);
     }
 
+    @GetMapping("get-userworkspaces")
+    public List<Workspace> userWorkspaces(){
+        return workspaceService.userWorkspaces(ProjectApplication.user_id);
+    }
+
 }

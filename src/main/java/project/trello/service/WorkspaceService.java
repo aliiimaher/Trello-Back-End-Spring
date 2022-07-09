@@ -60,4 +60,11 @@ public class WorkspaceService {
         return workspaceRepository.save(foundedWorkspace);
 
     }
+
+
+    public List<Workspace> userWorkspaces(Long user_id) {
+        Users user = usersRepository.findById(user_id).get();
+        List<Workspace> userWorkspaces = user.getWorkspaces();
+        return userWorkspaces;
+    }
 }
