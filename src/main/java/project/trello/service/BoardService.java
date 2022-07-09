@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import project.trello.model.Board;
 import project.trello.model.Workspace;
 import project.trello.repository.BoardRepository;
+import project.trello.repository.WorkspaceRepository;
 
 import java.util.List;
 
@@ -13,18 +14,24 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final WorkspaceRepository workspaceRepository;
 
     @Autowired
-    public BoardService(BoardRepository boardRepository) {
+    public BoardService(BoardRepository boardRepository, WorkspaceRepository workspaceRepository) {
         this.boardRepository = boardRepository;
+        this.workspaceRepository = workspaceRepository;
     }
 
     public List<Board> getBoards(){
         return boardRepository.findAll();
     }
 
-    public Board createBoard(Board board){
-        return boardRepository.save(board);
+    public Workspace createBoard(Long workspace_id,Board board){
+        boardRepository.save(board);
+        Workspace workspace = workspaceRepository.findById(workspace_id).get();
+        Board board1 = boardRepository.findById(board.getId()).get();
+        workspace.getBoards().add(board1);
+        return workspaceRepository.save(workspace);
     }
 
     public void deleteBoard(Long board_id) {
