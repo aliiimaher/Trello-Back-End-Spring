@@ -3,11 +3,8 @@ package project.trello.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import project.trello.model.Board;
-import project.trello.model.Card;
-import project.trello.model.Comment;
-import project.trello.model.Label;
-import project.trello.service.CardService;
+import project.trello.model.*;
+import project.trello.service.ArchiveService;
 import project.trello.service.CardService;
 
 import java.util.List;
@@ -16,10 +13,12 @@ import java.util.List;
 public class CardController {
 
     private final CardService cardService;
+    private final ArchiveService archiveService;
 
     @Autowired
-    public CardController(CardService cardService) {
+    public CardController(CardService cardService, ArchiveService archiveService) {
         this.cardService = cardService;
+        this.archiveService = archiveService;
     }
 
     @PutMapping("/create-card/{list_id}")
@@ -60,6 +59,16 @@ public class CardController {
     @PutMapping("/add-comment/{card_id}")
     public Card addComment(@PathVariable Long card_id, @RequestBody Comment comment){
         return cardService.addComment(card_id, comment);
+    }
+
+    @PutMapping("/addCardToArchive/{card_id}")
+    public void addCardToArchive(@PathVariable Long card_id){
+        archiveService.addCardToArchive(card_id);
+    }
+
+    @GetMapping("get-cardarchive")
+    public List<Archive> getArchive(){
+        return archiveService.getCardArchives();
     }
 
 }
