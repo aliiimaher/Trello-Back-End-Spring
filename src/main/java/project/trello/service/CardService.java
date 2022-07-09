@@ -2,13 +2,11 @@ package project.trello.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import project.trello.model.Archive;
 import project.trello.model.Card;
 import project.trello.model.Comment;
 import project.trello.model.Label;
-import project.trello.repository.CardRepository;
-import project.trello.repository.CommentRepository;
-import project.trello.repository.LabelRepository;
-import project.trello.repository.ListRepository;
+import project.trello.repository.*;
 
 import java.util.List;
 
@@ -19,13 +17,15 @@ public class CardService {
     private final LabelRepository labelRepository;
     private final CommentRepository commentRepository;
     private final ListRepository listRepository;
+    private final ArchiveRepository archiveRepository;
 
     @Autowired
-    public CardService(CardRepository cardRepository, LabelRepository labelRepository, CommentRepository commentRepository, ListRepository listRepository) {
+    public CardService(CardRepository cardRepository, LabelRepository labelRepository, CommentRepository commentRepository, ListRepository listRepository, ArchiveRepository archiveRepository) {
         this.cardRepository = cardRepository;
         this.labelRepository = labelRepository;
         this.commentRepository = commentRepository;
         this.listRepository = listRepository;
+        this.archiveRepository = archiveRepository;
     }
 
     public project.trello.model.List createCard(Long list_id, Card card) {
@@ -46,7 +46,18 @@ public class CardService {
             throw new IllegalStateException("card with id " + card_id +
                     " does not exist!");
         }
-        cardRepository.deleteById(card_id);
+        if(archiveRepository.findAll().isEmpty()){
+            throw new IllegalStateException("archive is empty !");
+        }
+        Archive archive = archiveRepository.findById(1L).get();
+        List<Card> archiveCards = archive.getCards();
+        for(Card card : archiveCards){
+            if(card.getId().equals(card_id)){
+                cardRepository.deleteById(card_id);
+                return;
+            }
+        }
+        throw new IllegalStateException("you should archive this card first !");
     }
 
     public Card editCard(Long card_id,Card card){
