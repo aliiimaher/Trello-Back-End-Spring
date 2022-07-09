@@ -4,31 +4,37 @@ package project.trello.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.trello.model.Board;
+import project.trello.model.Users;
 import project.trello.model.Workspace;
 import project.trello.repository.BoardRepository;
+import project.trello.repository.UsersRepository;
 import project.trello.repository.WorkspaceRepository;
 
 import java.util.List;
 
 @Service
 public class WorkspaceService {
-
     private final WorkspaceRepository workspaceRepository;
+    private final UsersRepository usersRepository;
     private final BoardRepository boardRepository;
 
     @Autowired
-    public WorkspaceService(WorkspaceRepository workspaceRepository,BoardRepository boardRepository) {
+    public WorkspaceService(WorkspaceRepository workspaceRepository, UsersRepository usersRepository, BoardRepository boardRepository) {
         this.workspaceRepository = workspaceRepository;
+        this.usersRepository = usersRepository;
         this.boardRepository = boardRepository;
     }
-
 
     public List<Workspace> getWorkspaces(){
         return workspaceRepository.findAll();
     }
 
-    public Workspace createWorkspace(Workspace workspace){
-        return workspaceRepository.save(workspace);
+    public Users createWorkspace(Long user_id,Workspace workspace){
+        workspaceRepository.save(workspace);
+        Users user = usersRepository.findById(user_id).get();
+        Workspace workspace1 = workspaceRepository.findById(workspace.getId()).get();
+        user.getWorkspaces().add(workspace1);
+        return usersRepository.save(user);
     }
 
     public  Workspace assignBoardToWorkspace(Long board_id,Long workspace_id){
@@ -51,7 +57,6 @@ public class WorkspaceService {
         Workspace foundedWorkspace = workspaceRepository.findById(workspace_id).get();
         foundedWorkspace.setName(workspace.getName());
         foundedWorkspace.setVisibility(workspace.getVisibility());
-
         return workspaceRepository.save(foundedWorkspace);
 
     }

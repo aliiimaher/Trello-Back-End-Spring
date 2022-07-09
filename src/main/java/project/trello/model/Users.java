@@ -1,9 +1,7 @@
 package project.trello.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.apache.catalina.User;
 
 import javax.persistence.*;
 import java.util.List;
