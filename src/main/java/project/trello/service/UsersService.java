@@ -93,4 +93,21 @@ public class UsersService {
         throw new IllegalStateException("workspace with id "+workspace_id+" does not exist");
     }
 
+    public void demoteAdminToMember(Long user_id, Long workspace_id) {
+        if(!usersRepository.findById(user_id).isPresent()){
+            throw new IllegalStateException("user with id "+user_id+" does not exist");
+        }
+        List<Workspace> workspaces = workspaceRepository.findAll();
+        for(Workspace workspace : workspaces){
+            if(workspace.getId().equals(workspace_id)){
+                if(!workspace.getIdOfAdmins().contains(user_id)){
+                    throw new IllegalStateException("user with id "+user_id+" is already member");
+                }
+                workspace.getIdOfAdmins().remove(user_id);
+                workspaceRepository.save(workspace);
+                return;
+            }
+        }
+        throw new IllegalStateException("workspace with id "+workspace_id+" does not exist");
+    }
 }
