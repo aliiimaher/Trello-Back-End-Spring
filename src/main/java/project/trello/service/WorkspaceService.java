@@ -3,6 +3,7 @@ package project.trello.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import project.trello.ProjectApplication;
 import project.trello.model.Board;
 import project.trello.model.Users;
 import project.trello.model.Workspace;

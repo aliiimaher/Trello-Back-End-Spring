@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.trello.model.Archive;
 import project.trello.model.Board;
-import project.trello.model.Card;
 import project.trello.repository.ArchiveRepository;
 import project.trello.repository.BoardRepository;
 import project.trello.repository.ListRepository;
