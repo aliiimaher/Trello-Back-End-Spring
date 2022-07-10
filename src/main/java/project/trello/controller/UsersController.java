@@ -1,11 +1,10 @@
 package project.trello.controller;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.bind.annotation.*;
 import project.trello.model.Users;
-import project.trello.model.Workspace;
 import project.trello.service.UsersService;
+import project.trello.service.WorkspaceService;
 
 import java.util.List;
 
@@ -13,10 +12,12 @@ import java.util.List;
 public class UsersController {
 
     private final UsersService usersService;
+    private final WorkspaceService workspaceService;
 
 
-    public UsersController(UsersService usersService) {
+    public UsersController(UsersService usersService, WorkspaceService workspaceService) {
         this.usersService = usersService;
+        this.workspaceService = workspaceService;
     }
 
     @GetMapping("getusers")
@@ -47,5 +48,10 @@ public class UsersController {
     @DeleteMapping("/delete-user/{user_id}")
     public void deleteUser(@PathVariable("user_id") Long user_id) {
         usersService.deleteUser(user_id);
+    }
+
+    @PutMapping("/promote-member/{user_id}/{workspace_id}")
+    public void promoteMemberToAdmin(@PathVariable Long user_id,@PathVariable Long workspace_id){
+        usersService.promoteMember(user_id,workspace_id);
     }
 }

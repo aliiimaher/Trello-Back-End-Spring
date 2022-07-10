@@ -2,6 +2,7 @@ package project.trello.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
 import project.trello.ProjectApplication;
 import project.trello.model.Users;
 import project.trello.model.Workspace;
@@ -72,6 +73,24 @@ public class UsersService {
             throw new IllegalStateException("user with id " + user_id + " does not exists");
         }
         usersRepository.deleteById(user_id);
+    }
+
+    public void promoteMember(Long user_id,Long workspace_id) {
+        if(!usersRepository.findById(user_id).isPresent()){
+            throw new IllegalStateException("user with id "+user_id+" does not exist");
+        }
+        List<Workspace> workspaces = workspaceRepository.findAll();
+        for(Workspace workspace : workspaces){
+            if(workspace.getId().equals(workspace_id)){
+                if(workspace.getIdOfAdmins().contains(user_id)){
+                    throw new IllegalStateException("user with id "+user_id+" is already admin");
+                }
+                workspace.getIdOfAdmins().add(user_id);
+                workspaceRepository.save(workspace);
+                return;
+            }
+        }
+        throw new IllegalStateException("workspace with id "+workspace_id+" does not exist");
     }
 
 }
