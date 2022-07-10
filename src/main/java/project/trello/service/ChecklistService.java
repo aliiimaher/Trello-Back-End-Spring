@@ -34,4 +34,10 @@ public class ChecklistService {
         card.getChecklists().add(checklist1);
         return cardRepository.save(card);
     }
+
+    public Checklist addItem(Long checklist_id,String item){
+        Checklist checklist = checklistRepository.findById(checklist_id).get();
+        checklist.getItems().add(item);
+        return checklistRepository.save(checklist);
+    }
 }

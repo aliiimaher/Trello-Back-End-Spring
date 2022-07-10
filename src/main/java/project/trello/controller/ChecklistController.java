@@ -29,4 +29,9 @@ public class ChecklistController {
         return checklistService.createChecklist(card_id,checklist);
     }
 
+    @PutMapping("/add-item/{checklist_id}")
+    public Checklist addItem(@PathVariable Long checklist_id,@RequestBody Checklist checklist){
+        return checklistService.addItem(checklist_id,checklist.getItems().get(0));
+    }
+
 }
