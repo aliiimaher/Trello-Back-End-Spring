@@ -27,6 +27,9 @@ public class Workspace {
     @JoinColumn(name = "workspace_id")
     private List<Board> boards;
 
+    @ElementCollection
+    private List<Long> idOfAdmins;
+
 
 
     public Workspace(String name, String type, String description, String visibility, List<Board> boards) {
