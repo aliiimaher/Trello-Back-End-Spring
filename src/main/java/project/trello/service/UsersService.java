@@ -110,4 +110,10 @@ public class UsersService {
         }
         throw new IllegalStateException("workspace with id "+workspace_id+" does not exist");
     }
+
+    public boolean isAdmin(Long user_id,Long workspace_id){
+        Workspace workspace = workspaceRepository.findById(workspace_id).get();
+        return workspace.getIdOfAdmins().contains(user_id);
+    }
+
 }
