@@ -54,4 +54,10 @@ public class UsersController {
     public void promoteMemberToAdmin(@PathVariable Long user_id,@PathVariable Long workspace_id){
         usersService.promoteMember(user_id,workspace_id);
     }
+
+    @PutMapping("/demote-admin/{user_id}/{workspace_id}")
+    public void demoteAdminToMember(@PathVariable Long user_id,@PathVariable Long workspace_id){
+        usersService.demoteAdminToMember(user_id,workspace_id);
+    }
+
 }
