@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,16 +29,19 @@ public class Workspace {
     private List<Board> boards;
 
     @ElementCollection
-    private List<Long> idOfAdmins;
+    private List<Long> idOfAdmins = new ArrayList<>();
 
 
 
-    public Workspace(String name, String type, String description, String visibility, List<Board> boards) {
+    public Workspace(String name, String type, String description,
+                     String visibility, List<Board> boards,
+                     List<Long> idOfAdmins) {
         this.name = name;
         this.type = type;
         this.description = description;
         this.visibility = visibility;
         this.boards = boards;
+        this.idOfAdmins = idOfAdmins;
     }
 
 
