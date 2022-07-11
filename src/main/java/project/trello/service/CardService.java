@@ -1,5 +1,6 @@
 package project.trello.service;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.trello.ProjectApplication;
@@ -138,5 +139,13 @@ public class CardService {
         boardRepository.findById(boardId).get().getActivityList().add(msg);
         card.getComments().add(foundedComment);
         return cardRepository.save(card);
+    }
+
+    public void assignUserToCard(Long card_id, Long user_id){
+        Card thisCard = cardRepository.findById(card_id).get();
+        Users thisUser = usersRepository.findById(user_id).get();
+        String fullName = thisUser.getFirstName() + " " + thisUser.getLastName();
+        thisCard.getCardKeepers().add(fullName);
+        cardRepository.save(thisCard);
     }
 }

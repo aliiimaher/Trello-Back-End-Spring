@@ -16,12 +16,15 @@ public class Card {
     private Long id;
     private String title;
     private String description;
+    @ElementCollection
+    private List<String> cardKeepers;
 
 
     @OneToMany
     @JoinColumn(name = "checklist_id" )
     private List<Checklist> checklists;
 
+    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Users> users;
