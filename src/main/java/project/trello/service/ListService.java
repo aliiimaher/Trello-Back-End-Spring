@@ -2,11 +2,14 @@ package project.trello.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import project.trello.ProjectApplication;
 import project.trello.model.Archive;
 import project.trello.model.Board;
+import project.trello.model.Users;
 import project.trello.repository.ArchiveRepository;
 import project.trello.repository.BoardRepository;
 import project.trello.repository.ListRepository;
+import project.trello.repository.UsersRepository;
 
 import java.util.List;
 
@@ -16,12 +19,14 @@ public class ListService {
     private final ListRepository listRepository;
     private final BoardRepository boardRepository;
     private final ArchiveRepository archiveRepository;
+    private final UsersRepository usersRepository;
 
     @Autowired
-    public ListService(ListRepository listRepository, BoardRepository boardRepository, ArchiveRepository archiveRepository) {
+    public ListService(ListRepository listRepository, BoardRepository boardRepository, ArchiveRepository archiveRepository, UsersRepository usersRepository) {
         this.listRepository = listRepository;
         this.boardRepository = boardRepository;
         this.archiveRepository = archiveRepository;
+        this.usersRepository = usersRepository;
     }
 
     public List<project.trello.model.List> getLists() {
@@ -30,6 +35,10 @@ public class ListService {
 
     public Board createList(Long board_id,project.trello.model.List list) {
         list.setBoard_id(board_id);
+        Users thisUser = usersRepository.findById(ProjectApplication.user_id).get();
+        String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
+                " create list with " + list.getTitle() + " title.";
+        boardRepository.findById(board_id).get().getActivityList().add(msg);
         listRepository.save(list);
         Board board = boardRepository.findById(board_id).get();
         project.trello.model.List list1 = listRepository.findById(list.getId()).get();
