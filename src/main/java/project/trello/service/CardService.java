@@ -144,7 +144,8 @@ public class CardService {
     public void assignUserToCard(Long card_id, Long user_id){
         Card thisCard = cardRepository.findById(card_id).get();
         Users thisUser = usersRepository.findById(user_id).get();
-        thisCard.getUsers().add(thisUser);
+        String fullName = thisUser.getFirstName() + " " + thisUser.getLastName();
+        thisCard.getCardKeepers().add(fullName);
         cardRepository.save(thisCard);
     }
 }
