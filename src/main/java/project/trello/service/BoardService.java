@@ -27,6 +27,7 @@ public class BoardService {
     }
 
     public Workspace createBoard(Long workspace_id,Board board){
+        board.setWorkspace_id(workspace_id);
         boardRepository.save(board);
         Workspace workspace = workspaceRepository.findById(workspace_id).get();
         Board board1 = boardRepository.findById(board.getId()).get();
