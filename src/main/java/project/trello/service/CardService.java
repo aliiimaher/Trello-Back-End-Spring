@@ -37,6 +37,7 @@ public class CardService {
     }
 
     public project.trello.model.List createCard(Long list_id, Card card) {
+        card.setList_id(list_id);
         cardRepository.save(card);
         project.trello.model.List list = listRepository.findById(list_id).get();
         Card card1 = cardRepository.findById(card.getId()).get();
@@ -68,6 +69,14 @@ public class CardService {
         List<Card> archiveCards = archive.getCards();
         for(Card card : archiveCards){
             if(card.getId().equals(card_id)){
+                Users thisUser = usersRepository.findById(ProjectApplication.user_id).get();
+                Long listId = cardRepository.findById(card_id).get().getList_id();
+                project.trello.model.List thisList = listRepository.findById(listId).get();
+                String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
+                        " delete card by " + card.getTitle() + " title " +
+                        "from " + thisList.getTitle() + " list.";
+                Long boardId = thisList.getBoard_id();
+                boardRepository.findById(boardId).get().getActivityList().add(msg);
                 cardRepository.deleteById(card_id);
                 return;
             }
@@ -79,7 +88,13 @@ public class CardService {
         Card card1 = cardRepository.findById(card_id).get();
         card1.setTitle(card.getTitle());
         card1.setDescription(card.getDescription());
-
+        Users thisUser = usersRepository.findById(ProjectApplication.user_id).get();
+        Long listId = cardRepository.findById(card_id).get().getList_id();
+        project.trello.model.List thisList = listRepository.findById(listId).get();
+        String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
+                " edit a card" + "in " + thisList.getTitle() + " list.";
+        Long boardId = thisList.getBoard_id();
+        boardRepository.findById(boardId).get().getActivityList().add(msg);
         return cardRepository.save(card1);
     }
 
@@ -110,6 +125,14 @@ public class CardService {
         commentRepository.save(comment);
         Card card = cardRepository.findById(card_id).get();
         Comment foundedComment = commentRepository.findById(comment.getId()).get();
+        Users thisUser = usersRepository.findById(ProjectApplication.user_id).get();
+        Long listId = cardRepository.findById(card_id).get().getList_id();
+        project.trello.model.List thisList = listRepository.findById(listId).get();
+        String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
+                " comment on card by " + card.getTitle() + " title " +
+                "from " + thisList.getTitle() + " list.";
+        Long boardId = thisList.getBoard_id();
+        boardRepository.findById(boardId).get().getActivityList().add(msg);
         card.getComments().add(foundedComment);
         return cardRepository.save(card);
     }
