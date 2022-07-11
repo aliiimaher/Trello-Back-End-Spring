@@ -71,4 +71,10 @@ public class CardController {
         return archiveService.getArchives();
     }
 
+    @PutMapping("/assign-user-to-card/{card_id}/{user_id}")
+    public void assignUserToCard(@PathVariable Long card_id,
+                                 @PathVariable Long user_id){
+        cardService.assignUserToCard(card_id, user_id);
+    }
+
 }
