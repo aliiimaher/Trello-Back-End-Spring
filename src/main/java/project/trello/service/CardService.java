@@ -122,10 +122,13 @@ public class CardService {
     }
 
     public Card addComment(Long card_id, Comment comment){
+        Long user_id = ProjectApplication.user_id;
+        Users thisUser = usersRepository.findById(user_id).get();
+        comment.setCommenterName(thisUser.getFirstName().concat(thisUser.getLastName()));
+        comment.setUser(thisUser);
         commentRepository.save(comment);
         Card card = cardRepository.findById(card_id).get();
         Comment foundedComment = commentRepository.findById(comment.getId()).get();
-        Users thisUser = usersRepository.findById(ProjectApplication.user_id).get();
         Long listId = cardRepository.findById(card_id).get().getList_id();
         project.trello.model.List thisList = listRepository.findById(listId).get();
         String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
