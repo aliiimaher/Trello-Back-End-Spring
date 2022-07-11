@@ -21,3 +21,7 @@ You can run the application using Intellij run or run it with command in termina
 #### Sample of api call using Insomnia
 
 ![Sample of api call using Insomnia](Screenshot%202022-07-11%20170418.png)
+
+#### Intellij environment 
+
+![Intellij environment](Screenshot%202022-07-11%20171435.png)
