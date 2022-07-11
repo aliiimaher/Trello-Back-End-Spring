@@ -1,5 +1,6 @@
 package project.trello.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 
@@ -16,7 +17,9 @@ public class Comment {
     )
     private Long id;
     private String text;
+    private String commenterName;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id")
     private Users user;
