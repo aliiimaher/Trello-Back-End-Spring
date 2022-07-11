@@ -48,8 +48,12 @@ public class ListService {
 
     public project.trello.model.List editList(Long list_id, project.trello.model.List list) {
         project.trello.model.List foundedList = listRepository.findById(list_id).get();
+        Users thisUser = usersRepository.findById(ProjectApplication.user_id).get();
+        String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
+                " edit a list.";
+        Long board_id = listRepository.findById(list_id).get().getBoard_id();
+        boardRepository.findById(board_id).get().getActivityList().add(msg);
         foundedList.setTitle(list.getTitle());
-
         return listRepository.save(foundedList);
     }
 
