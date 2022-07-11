@@ -58,12 +58,13 @@ public class UsersService {
     }
 
     public Users updateUser(Long user_id , Users user){
-        Users users = usersRepository.findById(user_id).get();
-        users.setFirstName(user.getFirstName());
-        users.setLastName(user.getLastName());
-
-        return usersRepository.save(users);
-
+        if (ProjectApplication.user_id.equals(user_id)) {
+            Users users = usersRepository.findById(user_id).get();
+            users.setFirstName(user.getFirstName());
+            users.setLastName(user.getLastName());
+            return usersRepository.save(users);
+        }
+        throw new IllegalStateException("You do not have access :/");
     }
 
     public void deleteUser(Long user_id) {
@@ -75,39 +76,45 @@ public class UsersService {
     }
 
     public void promoteMember(Long user_id,Long workspace_id) {
-        if(!usersRepository.findById(user_id).isPresent()){
-            throw new IllegalStateException("user with id "+user_id+" does not exist");
-        }
-        List<Workspace> workspaces = workspaceRepository.findAll();
-        for(Workspace workspace : workspaces){
-            if(workspace.getId().equals(workspace_id)){
-                if(workspace.getIdOfAdmins().contains(user_id)){
-                    throw new IllegalStateException("user with id "+user_id+" is already admin");
+        Long maybeAdmin_id = ProjectApplication.user_id;
+        if (isAdmin(maybeAdmin_id, workspace_id)) {
+            if (!usersRepository.findById(user_id).isPresent()) {
+                throw new IllegalStateException("user with id " + user_id + " does not exist");
+            }
+            List<Workspace> workspaces = workspaceRepository.findAll();
+            for (Workspace workspace : workspaces) {
+                if (workspace.getId().equals(workspace_id)) {
+                    if (workspace.getIdOfAdmins().contains(user_id)) {
+                        throw new IllegalStateException("user with id " + user_id + " is already admin");
+                    }
+                    workspace.getIdOfAdmins().add(user_id);
+                    workspaceRepository.save(workspace);
+                    return;
                 }
-                workspace.getIdOfAdmins().add(user_id);
-                workspaceRepository.save(workspace);
-                return;
             }
         }
-        throw new IllegalStateException("workspace with id "+workspace_id+" does not exist");
+        throw new IllegalStateException("You are not an admin :/");
     }
 
     public void demoteAdminToMember(Long user_id, Long workspace_id) {
-        if(!usersRepository.findById(user_id).isPresent()){
-            throw new IllegalStateException("user with id "+user_id+" does not exist");
-        }
-        List<Workspace> workspaces = workspaceRepository.findAll();
-        for(Workspace workspace : workspaces){
-            if(workspace.getId().equals(workspace_id)){
-                if(!workspace.getIdOfAdmins().contains(user_id)){
-                    throw new IllegalStateException("user with id "+user_id+" is already member");
+        Long maybeAdmin_id = ProjectApplication.user_id;
+        if (isAdmin(maybeAdmin_id, workspace_id)) {
+            if (!usersRepository.findById(user_id).isPresent()) {
+                throw new IllegalStateException("user with id " + user_id + " does not exist");
+            }
+            List<Workspace> workspaces = workspaceRepository.findAll();
+            for (Workspace workspace : workspaces) {
+                if (workspace.getId().equals(workspace_id)) {
+                    if (!workspace.getIdOfAdmins().contains(user_id)) {
+                        throw new IllegalStateException("user with id " + user_id + " is already member");
+                    }
+                    workspace.getIdOfAdmins().remove(user_id);
+                    workspaceRepository.save(workspace);
+                    return;
                 }
-                workspace.getIdOfAdmins().remove(user_id);
-                workspaceRepository.save(workspace);
-                return;
             }
         }
-        throw new IllegalStateException("workspace with id "+workspace_id+" does not exist");
+        throw new IllegalStateException("You are not an admin :/");
     }
 
     public boolean isAdmin(Long user_id,Long workspace_id){

@@ -34,6 +34,7 @@ public class WorkspaceService {
         workspaceRepository.save(workspace);
         Users user = usersRepository.findById(user_id).get();
         Workspace workspace1 = workspaceRepository.findById(workspace.getId()).get();
+        workspace1.getIdOfAdmins().add(user_id);
         user.getWorkspaces().add(workspace1);
         return usersRepository.save(user);
     }
