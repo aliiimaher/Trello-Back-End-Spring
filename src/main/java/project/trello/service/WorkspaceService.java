@@ -69,7 +69,7 @@ public class WorkspaceService {
         if (usersService.isAdmin(maybeAdmin_id, workspace_id)) {
             Workspace foundedWorkspace = workspaceRepository.findById(workspace_id).get();
             foundedWorkspace.setName(workspace.getName());
-            foundedWorkspace.setVisibility(workspace.getVisibility());
+            //foundedWorkspace.setVisibility(workspace.getVisibility());
             return workspaceRepository.save(foundedWorkspace);
         }
         throw new IllegalStateException("You are not an admin :/");
