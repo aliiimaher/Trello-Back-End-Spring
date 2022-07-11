@@ -71,6 +71,12 @@ public class ArchiveService {
         Archive archive1 = archiveRepository.findById(1L).get();
         project.trello.model.List list = listRepository.findById(list_id).get();
         archive1.getLists().add(list);
+        Users thisUser = usersRepository.findById(ProjectApplication.user_id).get();
+        project.trello.model.List thisList = listRepository.findById(list_id).get();
+        String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
+                " archive list with " + thisList.getTitle() + " title.";
+        Long boardId = thisList.getBoard_id();
+        boardRepository.findById(boardId).get().getActivityList().add(msg);
         archiveRepository.save(archive1);
         List<Board> boards = boardRepository.findAll();
         for(Board board : boards){
