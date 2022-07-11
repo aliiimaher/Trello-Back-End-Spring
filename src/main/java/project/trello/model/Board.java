@@ -22,7 +22,8 @@ public class Board {
     private String visibility;      // it can be "private" -- "workspace" -- "public"    .
     @ElementCollection
     private List<String> activityList;
-
+    @JsonIgnore
+    private Long workspace_id;
     @OneToMany
     @JoinColumn(name = "list_id")
     private List<project.trello.model.List> lists;
@@ -41,10 +42,12 @@ public class Board {
 
     public Board(String title, String visibility,
                  List<String> activityList,
+                 Long workspace_id,
                  List<project.trello.model.List> lists) {
         this.title = title;
         this.visibility = visibility;
         this.activityList = activityList;
+        this.workspace_id = workspace_id;
         this.lists = lists;
     }
 }

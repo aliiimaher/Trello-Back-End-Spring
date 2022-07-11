@@ -40,5 +40,4 @@ public class Card {
 
     @JsonIgnore
     private Long list_id;
-
 }
