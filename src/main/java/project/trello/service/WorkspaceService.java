@@ -18,12 +18,14 @@ public class WorkspaceService {
     private final WorkspaceRepository workspaceRepository;
     private final UsersRepository usersRepository;
     private final BoardRepository boardRepository;
+    private final UsersService usersService;
 
     @Autowired
-    public WorkspaceService(WorkspaceRepository workspaceRepository, UsersRepository usersRepository, BoardRepository boardRepository) {
+    public WorkspaceService(WorkspaceRepository workspaceRepository, UsersRepository usersRepository, BoardRepository boardRepository, UsersService usersService) {
         this.workspaceRepository = workspaceRepository;
         this.usersRepository = usersRepository;
         this.boardRepository = boardRepository;
+        this.usersService = usersService;
     }
 
     public List<Workspace> getWorkspaces(){
@@ -41,6 +43,7 @@ public class WorkspaceService {
         return usersRepository.save(user);
     }
 
+    // Good Feeling ^~^
     public  Workspace assignBoardToWorkspace(Long board_id,Long workspace_id){
         Board board = boardRepository.findById(board_id).get();
         Workspace workspace = workspaceRepository.findById(workspace_id).get();
@@ -49,20 +52,27 @@ public class WorkspaceService {
     }
 
     public void deleteWorkspace(Long workspace_id) {
-        boolean exists = workspaceRepository.existsById(workspace_id);
-        if (!exists) {
-            throw new IllegalStateException("workspace with id " +
-                    workspace_id + " does not exist");
+        Long maybeAdmin_id = ProjectApplication.user_id;
+        if (usersService.isAdmin(maybeAdmin_id, workspace_id)) {
+            boolean exists = workspaceRepository.existsById(workspace_id);
+            if (!exists) {
+                throw new IllegalStateException("workspace with id " +
+                        workspace_id + " does not exist");
+            }
+            workspaceRepository.deleteById(workspace_id);
         }
-        workspaceRepository.deleteById(workspace_id);
+        throw new IllegalStateException("You are not an admin :/");
     }
 
     public Workspace editWorkspace(Long workspace_id, Workspace workspace) {
-        Workspace foundedWorkspace = workspaceRepository.findById(workspace_id).get();
-        foundedWorkspace.setName(workspace.getName());
-        foundedWorkspace.setVisibility(workspace.getVisibility());
-        return workspaceRepository.save(foundedWorkspace);
-
+        Long maybeAdmin_id = ProjectApplication.user_id;
+        if (usersService.isAdmin(maybeAdmin_id, workspace_id)) {
+            Workspace foundedWorkspace = workspaceRepository.findById(workspace_id).get();
+            foundedWorkspace.setName(workspace.getName());
+            foundedWorkspace.setVisibility(workspace.getVisibility());
+            return workspaceRepository.save(foundedWorkspace);
+        }
+        throw new IllegalStateException("You are not an admin :/");
     }
 
 
