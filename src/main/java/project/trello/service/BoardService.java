@@ -62,7 +62,7 @@ public class BoardService {
         if (usersService.isAdmin(maybeAdmin_id, workspace_id)) {
             Board foundedBoard = boardRepository.findById(board_id).get();
             foundedBoard.setTitle(board.getTitle());
-            foundedBoard.setVisibility(board.getVisibility());
+            //foundedBoard.setVisibility(board.getVisibility());
 
             return boardRepository.save(foundedBoard);
         }
