@@ -37,4 +37,9 @@ public class BoardController {
     public Board editBoard(@PathVariable Long board_id, @RequestBody Board board){
         return boardService.editBoard(board_id, board);
     }
+
+    @GetMapping("/get-activities/{board_id}")
+    public List<String> getActivities(@PathVariable Long board_id) {
+        return boardService.getActivities(board_id);
+    }
 }

@@ -43,12 +43,15 @@ public class BoardService {
         boardRepository.deleteById(board_id);
     }
 
-
     public Board editBoard(Long board_id, Board board) {
         Board foundedBoard = boardRepository.findById(board_id).get();
         foundedBoard.setTitle(board.getTitle());
         foundedBoard.setVisibility(board.getVisibility());
 
         return boardRepository.save(foundedBoard);
+    }
+
+    public List<String> getActivities(Long board_id) {
+        return boardRepository.findById(board_id).get().getActivityList();
     }
 }
