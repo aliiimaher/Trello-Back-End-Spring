@@ -2,13 +2,12 @@ package project.trello.service;
 
 
 import org.springframework.stereotype.Service;
+import project.trello.ProjectApplication;
 import project.trello.model.Archive;
 import project.trello.model.Board;
 import project.trello.model.Card;
-import project.trello.repository.ArchiveRepository;
-import project.trello.repository.BoardRepository;
-import project.trello.repository.CardRepository;
-import project.trello.repository.ListRepository;
+import project.trello.model.Users;
+import project.trello.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +19,14 @@ public class ArchiveService {
     private final CardRepository cardRepository;
     private final ListRepository listRepository;
     private final BoardRepository boardRepository;
+    private final UsersRepository usersRepository;
 
-    public ArchiveService(ArchiveRepository archiveRepository, CardRepository cardRepository, ListRepository listRepository, BoardRepository boardRepository) {
+    public ArchiveService(ArchiveRepository archiveRepository, CardRepository cardRepository, ListRepository listRepository, BoardRepository boardRepository, UsersRepository usersRepository) {
         this.archiveRepository = archiveRepository;
         this.cardRepository = cardRepository;
         this.listRepository = listRepository;
         this.boardRepository = boardRepository;
+        this.usersRepository = usersRepository;
     }
 
 
@@ -38,6 +39,14 @@ public class ArchiveService {
         }
         Archive archive1 = archiveRepository.findById(1L).get();
         Card card = cardRepository.findById(card_id).get();
+        Users thisUser = usersRepository.findById(ProjectApplication.user_id).get();
+        Long listId = cardRepository.findById(card_id).get().getList_id();
+        project.trello.model.List thisList = listRepository.findById(listId).get();
+        String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
+                " archive card with " + card.getTitle() + " title " +
+                "from " + thisList.getTitle() + " list.";
+        Long boardId = thisList.getBoard_id();
+        boardRepository.findById(boardId).get().getActivityList().add(msg);
         archive1.getCards().add(card);
         archiveRepository.save(archive1);
         List<project.trello.model.List> lists = listRepository.findAll();
