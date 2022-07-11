@@ -2,10 +2,8 @@ package project.trello.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import project.trello.model.Archive;
-import project.trello.model.Card;
-import project.trello.model.Comment;
-import project.trello.model.Label;
+import project.trello.ProjectApplication;
+import project.trello.model.*;
 import project.trello.repository.*;
 
 import java.util.List;
@@ -18,14 +16,24 @@ public class CardService {
     private final CommentRepository commentRepository;
     private final ListRepository listRepository;
     private final ArchiveRepository archiveRepository;
+    private final UsersRepository usersRepository;
+    private final BoardRepository boardRepository;
 
     @Autowired
-    public CardService(CardRepository cardRepository, LabelRepository labelRepository, CommentRepository commentRepository, ListRepository listRepository, ArchiveRepository archiveRepository) {
+    public CardService(CardRepository cardRepository,
+                       LabelRepository labelRepository,
+                       CommentRepository commentRepository,
+                       ListRepository listRepository,
+                       ArchiveRepository archiveRepository,
+                       UsersRepository usersRepository,
+                       BoardRepository boardRepository) {
         this.cardRepository = cardRepository;
         this.labelRepository = labelRepository;
         this.commentRepository = commentRepository;
         this.listRepository = listRepository;
         this.archiveRepository = archiveRepository;
+        this.usersRepository = usersRepository;
+        this.boardRepository = boardRepository;
     }
 
     public project.trello.model.List createCard(Long list_id, Card card) {
@@ -33,6 +41,13 @@ public class CardService {
         project.trello.model.List list = listRepository.findById(list_id).get();
         Card card1 = cardRepository.findById(card.getId()).get();
         list.getCards().add(card1);
+        Users thisUser = usersRepository.findById(ProjectApplication.user_id).get();
+        String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
+                " Create card by " + card.getTitle() + " title in " +
+                listRepository.findById(list_id).get().getTitle() + " list.";
+        project.trello.model.List thisList = listRepository.findById(list_id).get();
+        Long boardId = thisList.getBoard_id();
+        boardRepository.findById(boardId).get().getActivityList().add(msg);
         return listRepository.save(list);
     }
 

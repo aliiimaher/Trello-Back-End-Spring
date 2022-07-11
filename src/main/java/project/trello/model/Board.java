@@ -20,20 +20,31 @@ public class Board {
     private Long id;
     private String title;
     private String visibility;      // it can be "private" -- "workspace" -- "public"    .
+    @ElementCollection
+    private List<String> activityList;
 
     @OneToMany
     @JoinColumn(name = "list_id")
     private List<project.trello.model.List> lists;
 
-    @JsonIgnore
-    @OneToMany
-    @JoinColumn(name = "activity_id")
-    private List<Activity> activities;
+//    @JsonIgnore
+//    @OneToMany
+//    @JoinColumn(name = "activity_id")
+//    private List<Activity> activities;
 
-    public Board(String title, String visibility, List<project.trello.model.List> lists, List<Activity> activities) {
+//    public Board(String title, String visibility, List<project.trello.model.List> lists, List<Activity> activities) {
+//        this.title = title;
+//        this.visibility = visibility;
+//        this.lists = lists;
+//        this.activities = activities;
+//    }
+
+    public Board(String title, String visibility,
+                 List<String> activityList,
+                 List<project.trello.model.List> lists) {
         this.title = title;
         this.visibility = visibility;
+        this.activityList = activityList;
         this.lists = lists;
-        this.activities = activities;
     }
 }
