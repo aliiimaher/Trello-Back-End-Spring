@@ -101,28 +101,45 @@ public class CardService {
     }
 
     public Card editCard(Long card_id,Card card){
-        Card card1 = cardRepository.findById(card_id).get();
-        card1.setTitle(card.getTitle());
-        card1.setDescription(card.getDescription());
-        Users thisUser = usersRepository.findById(ProjectApplication.user_id).get();
-        Long listId = cardRepository.findById(card_id).get().getList_id();
-        project.trello.model.List thisList = listRepository.findById(listId).get();
-        String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
-                " edit a card" + "in " + thisList.getTitle() + " list.";
+        Long maybeAdmin_id = ProjectApplication.user_id;
+        Long list_id = cardRepository.findById(card_id).get().getList_id();
+        project.trello.model.List thisList = listRepository.findById(list_id).get();
         Long boardId = thisList.getBoard_id();
-        boardRepository.findById(boardId).get().getActivityList().add(msg);
-        return cardRepository.save(card1);
+        Board thisBoard = boardRepository.findById(boardId).get();
+        Long workspace_id = thisBoard.getWorkspace_id();
+        if (usersService.isAdmin(maybeAdmin_id, workspace_id)) {
+            Card card1 = cardRepository.findById(card_id).get();
+            card1.setTitle(card.getTitle());
+            card1.setDescription(card.getDescription());
+            Users thisUser = usersRepository.findById(ProjectApplication.user_id).get();
+            Long listId = cardRepository.findById(card_id).get().getList_id();
+            String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
+                    " edit a card" + "in " + thisList.getTitle() + " list.";
+            boardRepository.findById(boardId).get().getActivityList().add(msg);
+            return cardRepository.save(card1);
+        }
+        throw new IllegalStateException("You are not an admin :/");
     }
 
     public Card addLabel(Long card_id,Label label){
-        labelRepository.save(label);
-        Card card = cardRepository.findById(card_id).get();
-        Label label1 = labelRepository.findById(label.getId()).get();
-        card.getLabels().add(label1);
-        return cardRepository.save(card);
+        Long maybeAdmin_id = ProjectApplication.user_id;
+        Long list_id = cardRepository.findById(card_id).get().getList_id();
+        project.trello.model.List thisList = listRepository.findById(list_id).get();
+        Long boardId = thisList.getBoard_id();
+        Board thisBoard = boardRepository.findById(boardId).get();
+        Long workspace_id = thisBoard.getWorkspace_id();
+        if (usersService.isAdmin(maybeAdmin_id, workspace_id)) {
+            labelRepository.save(label);
+            Card card = cardRepository.findById(card_id).get();
+            Label label1 = labelRepository.findById(label.getId()).get();
+            card.getLabels().add(label1);
+            return cardRepository.save(card);
+        }
+        throw new IllegalStateException("You are not an admin :/");
     }
 
     public void deleteLabel(Long label_id){
+
         boolean exists = labelRepository.existsById(label_id);
         if (!exists) {
             throw new IllegalStateException("lebel with id " + label_id + " does not exists");
@@ -138,29 +155,45 @@ public class CardService {
     }
 
     public Card addComment(Long card_id, Comment comment){
-        Long user_id = ProjectApplication.user_id;
-        Users thisUser = usersRepository.findById(user_id).get();
-        comment.setCommenterName(thisUser.getFirstName().concat(thisUser.getLastName()));
-        comment.setUser(thisUser);
-        commentRepository.save(comment);
-        Card card = cardRepository.findById(card_id).get();
-        Comment foundedComment = commentRepository.findById(comment.getId()).get();
-        Long listId = cardRepository.findById(card_id).get().getList_id();
-        project.trello.model.List thisList = listRepository.findById(listId).get();
-        String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
-                " comment on card by " + card.getTitle() + " title " +
-                "from " + thisList.getTitle() + " list.";
+        Long maybeAdmin_id = ProjectApplication.user_id;
+        Long list_id = cardRepository.findById(card_id).get().getList_id();
+        project.trello.model.List thisList = listRepository.findById(list_id).get();
         Long boardId = thisList.getBoard_id();
-        boardRepository.findById(boardId).get().getActivityList().add(msg);
-        card.getComments().add(foundedComment);
-        return cardRepository.save(card);
+        Board thisBoard = boardRepository.findById(boardId).get();
+        Long workspace_id = thisBoard.getWorkspace_id();
+        if (usersService.isAdmin(maybeAdmin_id, workspace_id)) {
+            Long user_id = ProjectApplication.user_id;
+            Users thisUser = usersRepository.findById(user_id).get();
+            comment.setCommenterName(thisUser.getFirstName().concat(thisUser.getLastName()));
+            comment.setUser(thisUser);
+            commentRepository.save(comment);
+            Card card = cardRepository.findById(card_id).get();
+            Comment foundedComment = commentRepository.findById(comment.getId()).get();
+            Long listId = cardRepository.findById(card_id).get().getList_id();
+            String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
+                    " comment on card by " + card.getTitle() + " title " +
+                    "from " + thisList.getTitle() + " list.";
+            boardRepository.findById(boardId).get().getActivityList().add(msg);
+            card.getComments().add(foundedComment);
+            return cardRepository.save(card);
+        }
+        throw new IllegalStateException("You are not an admin :/");
     }
 
     public void assignUserToCard(Long card_id, Long user_id){
-        Card thisCard = cardRepository.findById(card_id).get();
-        Users thisUser = usersRepository.findById(user_id).get();
-        String fullName = thisUser.getFirstName() + " " + thisUser.getLastName();
-        thisCard.getCardKeepers().add(fullName);
-        cardRepository.save(thisCard);
+        Long maybeAdmin_id = ProjectApplication.user_id;
+        Long list_id = cardRepository.findById(card_id).get().getList_id();
+        project.trello.model.List thisList = listRepository.findById(list_id).get();
+        Long boardId = thisList.getBoard_id();
+        Board thisBoard = boardRepository.findById(boardId).get();
+        Long workspace_id = thisBoard.getWorkspace_id();
+        if (usersService.isAdmin(maybeAdmin_id, workspace_id)) {
+            Card thisCard = cardRepository.findById(card_id).get();
+            Users thisUser = usersRepository.findById(user_id).get();
+            String fullName = thisUser.getFirstName() + " " + thisUser.getLastName();
+            thisCard.getCardKeepers().add(fullName);
+            cardRepository.save(thisCard);
+        }
+        throw new IllegalStateException("You are not an admin :/");
     }
 }
