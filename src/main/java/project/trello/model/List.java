@@ -20,6 +20,7 @@ public class List {
     @JoinColumn(name = "card_id")
     private java.util.List<Card> cards;
 
+    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "activity_id")
     private java.util.List<Activity> activities;

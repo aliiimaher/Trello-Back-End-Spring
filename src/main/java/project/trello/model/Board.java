@@ -19,7 +19,7 @@ public class Board {
     )
     private Long id;
     private String title;
-    private String visibility;      // it can be "private" -- "workspace" -- "public"    .
+    //private String visibility;      // it can be "private" -- "workspace" -- "public"    .
     @ElementCollection
     private List<String> activityList;
     @JsonIgnore
@@ -40,12 +40,12 @@ public class Board {
 //        this.activities = activities;
 //    }
 
-    public Board(String title, String visibility,
+    public Board(String title,
                  List<String> activityList,
                  Long workspace_id,
                  List<project.trello.model.List> lists) {
         this.title = title;
-        this.visibility = visibility;
+        //this.visibility = visibility;
         this.activityList = activityList;
         this.workspace_id = workspace_id;
         this.lists = lists;
