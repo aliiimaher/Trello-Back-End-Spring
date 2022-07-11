@@ -29,6 +29,7 @@ public class ListService {
     }
 
     public Board createList(Long board_id,project.trello.model.List list) {
+        list.setBoard_id(board_id);
         listRepository.save(list);
         Board board = boardRepository.findById(board_id).get();
         project.trello.model.List list1 = listRepository.findById(list.getId()).get();

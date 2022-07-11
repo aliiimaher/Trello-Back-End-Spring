@@ -1,5 +1,6 @@
 package project.trello.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 
@@ -22,4 +23,7 @@ public class List {
     @OneToMany
     @JoinColumn(name = "activity_id")
     private java.util.List<Activity> activities;
+
+    @JsonIgnore
+    private Long board_id;
 }
