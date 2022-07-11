@@ -66,6 +66,11 @@ public class ListService {
         List<project.trello.model.List> archiveLists = archive.getLists();
         for(project.trello.model.List list : archiveLists){
             if(list.getId().equals(list_id)){
+                Users thisUser = usersRepository.findById(ProjectApplication.user_id).get();
+                String msg = thisUser.getFirstName() + " " + thisUser.getLastName() +
+                        " delete list with " + list.getTitle() + " title.";
+                Long board_id = listRepository.findById(list_id).get().getBoard_id();
+                boardRepository.findById(board_id).get().getActivityList().add(msg);
                 listRepository.deleteById(list_id);
                 return;
             }
