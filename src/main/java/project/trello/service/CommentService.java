@@ -21,6 +21,7 @@ public class CommentService {
             throw new IllegalStateException("comment with id " +
                     comment_id + " does not exist!");
         }
+        commentRepository.deleteById(comment_id);
     }
 
     public Comment editComment(Long comment_id, Comment comment) {
