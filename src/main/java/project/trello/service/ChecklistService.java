@@ -61,4 +61,13 @@ public class ChecklistService {
         checklist.getItems().add(item);
         return checklistRepository.save(checklist);
     }
+
+    public void deleteChecklist(Long checklist_id) {
+        boolean exists = checklistRepository.existsById(checklist_id);
+        if (!exists) {
+            throw new IllegalStateException("Checklist with id " +
+                    checklist_id + " does not exist!");
+        }
+        checklistRepository.deleteById(checklist_id);
+    }
 }
