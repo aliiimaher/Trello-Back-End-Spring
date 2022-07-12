@@ -34,4 +34,9 @@ public class ChecklistController {
         return checklistService.addItem(checklist_id,checklist.getItems().get(0));
     }
 
+    @DeleteMapping("/delete-checklist/{checklist_id}")
+    public void deleteChecklist(@PathVariable Long checklist_id) {
+        checklistService.deleteChecklist(checklist_id);
+    }
+
 }
