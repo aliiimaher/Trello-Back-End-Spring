@@ -32,10 +32,10 @@ public class BoardService {
     public Workspace createBoard(Long workspace_id,Board board){
         Long maybeAdmin_id = ProjectApplication.user_id;
         if (usersService.isAdmin(maybeAdmin_id, workspace_id)) {
-            board.setWorkspace_id(workspace_id);
             boardRepository.save(board);
             Workspace workspace = workspaceRepository.findById(workspace_id).get();
             Board board1 = boardRepository.findById(board.getId()).get();
+            board1.setWorkspace_id(workspace_id);
             workspace.getBoards().add(board1);
             return workspaceRepository.save(workspace);
         }
@@ -52,6 +52,7 @@ public class BoardService {
                         board_id + " does not exist");
             }
             boardRepository.deleteById(board_id);
+            return;
         }
         throw new IllegalStateException("You are not an admin :/");
     }

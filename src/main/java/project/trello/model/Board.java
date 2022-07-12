@@ -22,7 +22,7 @@ public class Board {
     //private String visibility;      // it can be "private" -- "workspace" -- "public"    .
     @ElementCollection
     private List<String> activityList;
-    @JsonIgnore
+    //@JsonIgnore
     private Long workspace_id;
     @OneToMany
     @JoinColumn(name = "list_id")
